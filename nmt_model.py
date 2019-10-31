@@ -168,8 +168,8 @@ class NMT(nn.Module):
         enc_hiddens, seq_len = nn.utils.rnn.pad_packed_sequence(enc_hiddens)
         enc_hiddens = enc_hiddens.permute(1, 0, 2)
 
-        dec_init_hidden_state = self.h_projection(torch.cat([last_hidden[0, :, :].squeeze(), last_hidden[1, :, :].squeeze()], -1))
-        dec_init_cell_state = self.c_projection(torch.cat([last_cell[0, :, :].squeeze(), last_cell[1, :, :].squeeze()], -1))
+        dec_init_hidden_state = self.h_projection(torch.cat([last_hidden[0, :, :], last_hidden[1, :, :]], -1))
+        dec_init_cell_state = self.c_projection(torch.cat([last_cell[0, :, :], last_cell[1, :, :]], -1))
         dec_init_state = (dec_init_hidden_state, dec_init_cell_state)
         ### END YOUR CODE
 
